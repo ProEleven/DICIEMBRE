@@ -485,15 +485,34 @@
         }
 
 .chat-container, .chat-box {
-  height: auto; /* Eliminar cualquier valor fijo */
-  overflow: hidden; /* Evita desbordamientos */
+  height: 100%; /* Para que el JavaScript tenga control total */
+  overflow: hidden; /* Evitar desbordamientos */
 }
-
 
     </style>
     <style>
   /* Reducir la altura en dispositivos móviles */
+  @media screen and (max-width: 768px) {
+    body {
+      height: auto; /* Permite que el cuerpo se adapte a una altura más flexible */
+    }
 
+    .chat-box {
+      height: 70vh; /* Ajusta la altura de la caja de chat al 70% de la ventana visible */
+    }
+
+    .chat-container {
+      height: 90vh; /* Hace que el contenedor no ocupe toda la altura de la pantalla */
+    }
+
+    .input-container {
+      min-height: 50px; /* Ajusta la altura del input en dispositivos móviles */
+    }
+
+    textarea#user-input {
+      font-size: 18px; /* Ajusta el tamaño de fuente en dispositivos móviles */
+    }
+  }
 </style>
 
 
@@ -615,6 +634,28 @@
   document.addEventListener("DOMContentLoaded", ajustarAltura);
   window.addEventListener("resize", ajustarAltura);
 </script>
+    <script>
+(function() {
+  // Ajustar dinámicamente la altura de los elementos usando window.innerHeight
+  function ajustarAltura() {
+    var alturaDisponible = window.innerHeight;
+
+    // Aplicar la altura calculada a los contenedores relevantes
+    document.querySelectorAll('.chat-container, .chat-box').forEach(function(elemento) {
+      elemento.style.height = alturaDisponible + 'px';
+    });
+  }
+
+  // Ajustar la altura al cargar la página y cuando cambie el tamaño de la pantalla
+  document.addEventListener('DOMContentLoaded', ajustarAltura);
+  window.addEventListener('resize', ajustarAltura);
+
+  // Asegurar que la altura también se recalcula después de cierta espera (para navegadores de apps problemáticos)
+  setTimeout(ajustarAltura, 300);
+  setTimeout(ajustarAltura, 1000);
+})();
+</script>
+
 
 
 </body>
