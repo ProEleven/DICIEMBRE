@@ -590,19 +590,6 @@
 
 
 ...
- <script>
-  // Espera a que el contenido esté completamente cargado
-  window.onload = function() {
-      const chatBox = document.getElementById('chat-box');
-      chatBox.scrollTop = chatBox.scrollHeight; // Desplaza hacia el final
-  };
-
-  // Observador de tamaño por si se reorienta la pantalla
-  window.addEventListener('resize', function() {
-      const chatBox = document.getElementById('chat-box');
-      chatBox.scrollTop = chatBox.scrollHeight;
-  });
-</script>
 
 </body>
 </html>
