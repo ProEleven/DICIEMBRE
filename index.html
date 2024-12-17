@@ -30,7 +30,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            height: calc(var(--vh, 1vh) * 100);
+            height: calc(var(--vh, 1vh) * 100); /* Altura dinámica */
         }
 
         .chat-box {
@@ -45,10 +45,10 @@
 
         .input-container {
             display: flex;
-            border-top: 1px solid #ff5ca1;
-            background-color: #ff5ca1;
             align-items: center;
-            padding: 0;
+            padding: 10px;
+            background-color: #ff5ca1;
+            border-top: 1px solid #ff5ca1;
         }
 
         textarea#user-input {
@@ -58,6 +58,9 @@
             border: none;
             outline: none;
             resize: none;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333;
         }
 
         button {
@@ -66,6 +69,12 @@
             color: #FFF;
             padding: 10px 20px;
             cursor: pointer;
+            margin-left: 5px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #ff73b5;
         }
     </style>
 </head>
@@ -98,6 +107,24 @@
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
+
+        function sendMessage() {
+            const chatBox = document.getElementById('chat-box');
+            const userInput = document.getElementById('user-input');
+            if (userInput.value.trim() !== '') {
+                const message = document.createElement('div');
+                message.textContent = userInput.value;
+                message.style.padding = '10px';
+                message.style.marginBottom = '5px';
+                message.style.backgroundColor = '#ff73b5';
+                message.style.borderRadius = '5px';
+                message.style.color = '#fff';
+                message.style.textAlign = 'right';
+                chatBox.appendChild(message);
+                userInput.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
     </script>
 </body>
 </html>
