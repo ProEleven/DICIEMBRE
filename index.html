@@ -5,7 +5,7 @@
     <title>🔥Chat P0RN0 En Vivo🔥</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
-    <meta data-hid="og:description" property="og:description" content="¡Disfruta al máximo, haz amistades increíbles y vive experiencias únicas. ¡No te pierdas esta oportunidad!">
+    <meta data-hid="og:description" property="og:description" content="! Disfruta al máximo, haz amistades increíbles y vive experiencias únicas. ¡No te pierdas esta oportunidad!">
     <meta property="og:image" content="ban.jpg">
     <link href='icon.png' rel='icon' type='image/x-icon'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css">
@@ -15,84 +15,70 @@
             background-image: url('babalu.jpg');
             color: #FFFFFF;
             margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            overflow: hidden;
         }
-
         .chat-container {
             width: 400px;
             max-width: 100%;
-            height: 100%;
+            height: 100vh;
             background-color: #ff5ca1;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         .chat-box {
             flex: 1;
             background-image: url('fondo.jpg');
             background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            overflow-y: auto; /* Agrega scroll si hay desbordamiento */
+            overflow-y: auto;
             padding: 10px;
             display: flex;
             flex-direction: column;
         }
-
         .message {
-            margin-bottom: 15px;
             color: #FFFFFF;
             padding: 10px;
+            margin-bottom: 10px;
+            background-color: #ff5ca1;
             border-radius: 10px;
             max-width: 80%;
-            word-wrap: break-word;
-            text-align: left;
         }
-
-        .message.user.text {
-            background-color: #ff5ca1;
-            align-self: flex-end;
-        }
-
-        .message.bot.text {
-            background-color: #ff5ca1;
-            color: #ffffff;
-            align-self: flex-start;
-        }
-
         .input-container {
             display: flex;
             border-top: 1px solid #ff5ca1;
             background-color: #ff5ca1;
             padding: 10px;
         }
-
         .input-container textarea {
             flex: 1;
+            resize: none;
             border: none;
-            border-radius: 5px;
+            outline: none;
             padding: 5px;
-            font-size: 16px;
         }
-
         .input-container button {
-            margin-left: 10px;
-            border: none;
             background-color: #ff5ca1;
             color: white;
+            border: none;
             padding: 10px;
             cursor: pointer;
-            font-weight: bold;
+        }
+        .bottom-placeholder {
+            height: 1px; /* Pequeño espacio al final */
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <!-- Mensajes se agregarán dinámicamente aquí -->
+            <!-- Mensajes de ejemplo -->
+            <div class="message">Bienvenido al chat</div>
+            <div class="message">¡Envía un mensaje!</div>
+            <div class="bottom-placeholder" id="bottom-placeholder"></div>
         </div>
         <div class="input-container">
             <textarea id="user-input" rows="1" placeholder="Escribe un mensaje..."></textarea>
@@ -101,35 +87,24 @@
     </div>
 
     <script>
-        // Auto-scroll al final del chat
-        function scrollToBottom() {
-            const chatBox = document.getElementById('chat-box');
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
+        // Asegura que siempre se muestre la parte de abajo del chat
+        document.addEventListener("DOMContentLoaded", function() {
+            const bottomPlaceholder = document.getElementById('bottom-placeholder');
+            bottomPlaceholder.scrollIntoView({ behavior: 'smooth' });
+        });
 
-        // Función para enviar mensajes
         function sendMessage() {
+            const chatBox = document.getElementById('chat-box');
             const userInput = document.getElementById('user-input');
-            const messageText = userInput.value.trim();
-            if (messageText) {
-                const chatBox = document.getElementById('chat-box');
-
-                // Crear el mensaje del usuario
-                const userMessage = document.createElement('div');
-                userMessage.classList.add('message', 'user', 'text');
-                userMessage.textContent = messageText;
-
-                // Agregar mensaje al chat
-                chatBox.appendChild(userMessage);
-
-                // Limpiar input y hacer scroll al final
-                userInput.value = '';
-                scrollToBottom();
+            if (userInput.value.trim() !== "") {
+                const message = document.createElement('div');
+                message.classList.add('message');
+                message.textContent = userInput.value;
+                chatBox.insertBefore(message, document.getElementById('bottom-placeholder'));
+                userInput.value = "";
+                document.getElementById('bottom-placeholder').scrollIntoView({ behavior: 'smooth' });
             }
         }
-
-        // Desplazar automáticamente al final al cargar
-        window.onload = scrollToBottom;
     </script>
 </body>
 </html>
