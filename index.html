@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>🔥Chat P0RN0 En Vivo🔥</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
-    <meta data-hid="og:description" property="og:description" content="! Disfruta al máximo, haz amistades increíbles y vive experiencias únicas. ¡No te pierdas esta oportunidad!">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="og:description" content="¡Disfruta al máximo, haz amistades increíbles y vive experiencias únicas!">
     <meta property="og:image" content="ban.jpg">
     <link href='icon.png' rel='icon' type='image/x-icon'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css">
@@ -19,56 +18,62 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
         .chat-container {
             width: 400px;
             max-width: 100%;
-            height: 100vh;
+            height: 100%;
             background-color: #ff5ca1;
             display: flex;
             flex-direction: column;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
         .chat-box {
             flex: 1;
-            background-image: url('fondo.jpg');
-            background-size: cover;
+            background: url('fondo.jpg') no-repeat center center/cover;
             overflow-y: auto;
-            padding: 10px;
             display: flex;
             flex-direction: column;
-        }
-        .message {
-            color: #FFFFFF;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #ff5ca1;
-            border-radius: 10px;
-            max-width: 80%;
+            padding: 20px;
+            scroll-behavior: smooth;
         }
         .input-container {
             display: flex;
-            border-top: 1px solid #ff5ca1;
             background-color: #ff5ca1;
+            border-top: 1px solid #ff5ca1;
             padding: 10px;
+            align-items: center;
         }
         .input-container textarea {
             flex: 1;
-            resize: none;
             border: none;
-            outline: none;
-            padding: 5px;
+            border-radius: 5px;
+            resize: none;
+            padding: 10px;
+            font-size: 16px;
         }
         .input-container button {
-            background-color: #ff5ca1;
-            color: white;
+            margin-left: 10px;
+            background-color: #FFFFFF;
+            color: #ff5ca1;
             border: none;
-            padding: 10px;
             cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
         }
-        .bottom-placeholder {
-            height: 1px; /* Pequeño espacio al final */
+        .message {
+            margin-bottom: 10px;
+            color: #FFF;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #d63078;
+            max-width: 80%;
+        }
+        .message.user {
+            align-self: flex-end;
+            background-color: #ff5ca1;
         }
     </style>
 </head>
@@ -76,9 +81,8 @@
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
             <!-- Mensajes de ejemplo -->
-            <div class="message">Bienvenido al chat</div>
-            <div class="message">¡Envía un mensaje!</div>
-            <div class="bottom-placeholder" id="bottom-placeholder"></div>
+            <div class="message bot">¡Hola! Bienvenido al chat.</div>
+            <div class="message user">Hola, ¿cómo estás?</div>
         </div>
         <div class="input-container">
             <textarea id="user-input" rows="1" placeholder="Escribe un mensaje..."></textarea>
@@ -86,23 +90,42 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
     <script>
-        // Asegura que siempre se muestre la parte de abajo del chat
-        document.addEventListener("DOMContentLoaded", function() {
-            const bottomPlaceholder = document.getElementById('bottom-placeholder');
-            bottomPlaceholder.scrollIntoView({ behavior: 'smooth' });
-        });
+        // Referencia al contenedor de mensajes
+        const chatBox = document.getElementById('chat-box');
 
+        // Hacer scroll al final al cargar la página
+        window.onload = () => {
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
+
+        // Función para enviar mensajes (ejemplo)
         function sendMessage() {
-            const chatBox = document.getElementById('chat-box');
             const userInput = document.getElementById('user-input');
-            if (userInput.value.trim() !== "") {
-                const message = document.createElement('div');
-                message.classList.add('message');
-                message.textContent = userInput.value;
-                chatBox.insertBefore(message, document.getElementById('bottom-placeholder'));
-                userInput.value = "";
-                document.getElementById('bottom-placeholder').scrollIntoView({ behavior: 'smooth' });
+            const message = userInput.value.trim();
+
+            if (message) {
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user');
+                userMessage.textContent = message;
+
+                chatBox.appendChild(userMessage);
+                userInput.value = '';
+
+                // Hacer scroll automáticamente hacia abajo
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Simular respuesta del bot
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.classList.add('message', 'bot');
+                    botMessage.textContent = 'Esto es una respuesta del bot.';
+
+                    chatBox.appendChild(botMessage);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 1000);
             }
         }
     </script>
