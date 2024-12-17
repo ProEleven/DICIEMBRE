@@ -3,117 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <title>🔥Chat P0RN0 En Vivo🔥</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta property="og:description" content="¡Disfruta al máximo, haz amistades increíbles y vive experiencias únicas. ¡No te pierdas esta oportunidad!">
+    <meta property="og:image" content="ban.jpg">
+    <link href='icon.png' rel='icon' type='image/x-icon'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css">
+
     <style>
+        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             background-image: url('babalu.jpg');
             color: #FFFFFF;
             margin: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-end; /* Alinear al fondo */
+            height: 100vh;
+            overflow: hidden; /* Evitar el desplazamiento general */
         }
 
+        /* Contenedor principal */
         .chat-container {
-            width: 400px;
-            height: 100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
             background-color: #ff5ca1;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Área de mensajes */
+        .chat-box {
+            flex: 1;
+            background-image: url('fondo.jpg');
+            background-size: cover;
+            background-position: center;
+            overflow-y: auto; /* Permitir desplazamiento */
+            padding: 10px;
             display: flex;
             flex-direction: column;
         }
 
-        .chat-box {
-            flex: 1;
-            overflow-y: auto; /* Habilita el desplazamiento */
+        /* Estilo de mensajes */
+        .message {
+            margin-bottom: 10px;
             padding: 10px;
-            background: url('fondo.jpg') no-repeat center center;
-            background-size: cover;
-            scroll-behavior: smooth; /* Desplazamiento fluido */
+            color: #FFFFFF;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .message.user.text {
+            background-color: #ff5ca1;
+            align-self: flex-end;
+        }
+        .message.bot.text {
+            background-color: #ff5ca1;
+            align-self: flex-start;
         }
 
+        /* Área de entrada fija */
         .input-container {
-            display: flex;
-            border-top: 1px solid #ff5ca1;
             background-color: #ff5ca1;
+            border-top: 1px solid #ff5ca1;
+            display: flex;
             align-items: center;
             padding: 5px;
+            position: sticky; /* Siempre visible */
+            bottom: 0;
+            left: 0;
+            width: 100%;
         }
 
         .input-container textarea {
             flex: 1;
             border: none;
-            border-radius: 5px;
             padding: 10px;
-            font-size: 16px;
+            font-size: 18px;
+            border-radius: 5px;
         }
 
         .input-container button {
             background-color: #ff5ca1;
-            color: white;
             border: none;
-            padding: 10px 20px;
+            color: #FFFFFF;
             cursor: pointer;
+            padding: 10px 15px;
+            font-weight: bold;
         }
 
-        .message {
-            margin: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: #ff5ca1;
-            color: white;
-            max-width: 70%;
-        }
-
-        .message.user {
-            align-self: flex-end;
-            background-color: #ff4081;
-        }
-
-        .message.bot {
-            align-self: flex-start;
+        .icon-container {
+            margin-right: 10px;
+            cursor: pointer;
+            color: #FFFFFF;
         }
     </style>
 </head>
+
 <body>
     <div class="chat-container">
-        <div class="chat-box" id="chat-box"></div>
-        <div class="input-container">
+        <div class="chat-box" id="chat-box">
+            <!-- Mensajes aquí -->
+        </div>
+        <div class="input-container" id="input-container">
+            <div class="icon-container" id="record-voice">🎙️</div>
+            <div class="icon-container" onclick="document.getElementById('media-input').click();">📷</div>
+            <input type="file" id="media-input" accept="image/*,video/*" style="display: none;">
             <textarea id="user-input" placeholder="Escribe un mensaje..."></textarea>
             <button onclick="sendMessage()">Enviar</button>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
-        // Función para enviar mensajes y desplazarse al final
-        function sendMessage() {
-            const chatBox = document.getElementById("chat-box");
-            const userInput = document.getElementById("user-input");
-            const messageText = userInput.value.trim();
-
-            if (messageText) {
-                // Crear un nuevo mensaje
-                const message = document.createElement("div");
-                message.classList.add("message", "user");
-                message.textContent = messageText;
-
-                // Agregar mensaje al chat
-                chatBox.appendChild(message);
-                userInput.value = "";
-
-                // Desplazarse al final del contenedor
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-        }
-
-        // Al cargar la página, desplazarse al final del chat-box
-        window.onload = () => {
-            const chatBox = document.getElementById("chat-box");
+        // Scroll automático al final del chat al cargar
+        window.onload = function() {
+            const chatBox = document.getElementById('chat-box');
             chatBox.scrollTop = chatBox.scrollHeight;
         };
+
+        // Función para enviar un mensaje
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+
+            if (input.value.trim() !== '') {
+                const message = document.createElement('div');
+                message.classList.add('message', 'user', 'text');
+                message.textContent = input.value;
+
+                chatBox.appendChild(message);
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll al final
+                input.value = '';
+            }
+        }
     </script>
 </body>
 </html>
