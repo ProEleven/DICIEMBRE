@@ -4,54 +4,59 @@
     <meta charset="UTF-8">
     <title>🔥Chat P0RN0 En Vivo🔥</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
     <meta data-hid="og:description" property="og:description" content="! Disfruta al máximo, haz amistades increíbles y vive experiencias únicas. ¡No te pierdas esta oportunidad!">
     <meta property="og:image" content="ban.jpg">
-    <link href='icon.png' rel='icon' type='image/x-icon'/>
+    <link href="icon.png" rel="icon" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-image: url('babalu.jpg');
             color: #FFFFFF;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            height: 100%; /* Adaptable */
-            min-height: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
+            height: 100vh;
         }
-
         .chat-container {
             width: 400px;
             max-width: 100%;
-            height: 100%;
+            height: 100%; /* Ajusta la altura al 100% del viewport */
+            background-color: #ff5ca1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            background-color: #ff5ca1;
         }
-
         .chat-box {
             flex: 1;
             overflow-y: auto;
-            padding: 15px;
+            padding: 20px;
+            border-bottom: 1px solid #ff5ca1;
             background-image: url('fondo.jpg');
             background-size: cover;
-            background-position: center;
+            background-repeat: no-repeat;
+            background-position: center center;
         }
-
+        .message {
+            display: block;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
         .input-container {
             display: flex;
             border-top: 1px solid #ff5ca1;
             background-color: #ff5ca1;
             align-items: center;
             padding: 10px;
-            box-sizing: border-box;
         }
-
-        .input-container textarea {
+        textarea#user-input {
             flex: 1;
             font-size: 16px;
             resize: none;
@@ -59,90 +64,43 @@
             outline: none;
             padding: 10px;
             border-radius: 5px;
-            box-sizing: border-box;
         }
-
-        .input-container button, .icon-container {
-            background-color: #ff5ca1;
-            border: none;
-            color: white;
-            padding: 10px;
-            font-size: 18px;
-            cursor: pointer;
-            box-sizing: border-box;
-        }
-
-        .input-container button:hover {
-            background-color: #e94d8b;
-        }
-
         .icon-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 0 10px;
+            color: white;
+            cursor: pointer;
         }
-
-        /* Solucionar problemas de altura en dispositivos móviles */
-        html, body {
-            height: 100%;
-            min-height: 100%;
+        button {
+            background-color: #ff5ca1;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
   <div class="chat-container">
       <div class="chat-box" id="chat-box"></div>
-      <div class="input-container" id="input-container">
+      <div class="input-container">
           <div class="icon-container" id="record-voice">🎙️</div>
           <div class="icon-container" onclick="document.getElementById('media-input').click();">📷</div>
-          <input type="file" id="media-input" accept="image/*,video/*" onchange="sendMedia()">
+          <input type="file" id="media-input" accept="image/*,video/*" style="display:none;" onchange="sendMedia()">
           <textarea id="user-input" rows="1" placeholder="Escribe un mensaje..."></textarea>
           <button onclick="sendMessage()">Enviar</button>
       </div>
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
   <script>
-      // Bloquear ciertas acciones como F12 o clic derecho
-      document.addEventListener('keydown', function(e) {
-          if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 'i')) {
-              e.preventDefault();
-          }
-          if (e.key === 'F12') {
-              e.preventDefault();
-          }
-      });
-
-      document.addEventListener('contextmenu', function(e) {
-          e.preventDefault();
-      });
-
-      // Iniciar EmojiOneArea
-      $(document).ready(function() {
-          $('#user-input').emojioneArea({
-              pickerPosition: 'top',
-              filtersPosition: 'bottom',
-              tones: false,
-              autocomplete: false,
-              inline: true,
-              hideSource: true,
-              placeholder: "Escribe un mensaje..."
-          });
-      });
-
-      function sendMessage() {
-          let message = $('#user-input').val();
-          if (message.trim() !== "") {
-              let msgElement = `<div class='message user text'>${message}</div>`;
-              $('#chat-box').append(msgElement);
-              $('#user-input').val('');
-          }
+      // Ajusta la altura visible del chat-box para que no quede oculto detrás del teclado
+      function adjustChatHeight() {
+          const inputContainerHeight = document.querySelector('.input-container').offsetHeight;
+          document.querySelector('.chat-box').style.height = `calc(100vh - ${inputContainerHeight}px)`;
       }
 
-      function sendMedia() {
-          alert('Enviar archivos o multimedia.');
-      }
+      // Detecta cambios en la ventana (por teclado en móvil)
+      window.addEventListener('resize', adjustChatHeight);
+      window.addEventListener('load', adjustChatHeight);
   </script>
 </body>
 </html>
