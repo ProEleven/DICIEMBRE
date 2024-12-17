@@ -3,84 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>🔥Chat P0RN0 En Vivo🔥</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta data-hid="og:description" property="og:description" content="! Disfruta al máximo, haz amistades increíbles y vive experiencias únicas. ¡No te pierdas esta oportunidad!">
-    <meta property="og:image" content="ban.jpg">
-    <link href="icon.png" rel="icon" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css">
     <style>
-        /* General CSS */
         body {
             font-family: Arial, sans-serif;
-            background-image: url('babalu.jpg');
+            background-color: #000;
             color: #FFFFFF;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
             height: 100%;
+            overflow: hidden; /* Previene el scroll */
         }
-
         .chat-container {
-            width: 400px;
-            max-width: 100%;
-            background-color: #ff5ca1;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            height: calc(var(--vh, 1vh) * 100); /* Altura dinámica */
+            height: 100vh; /* Ocupa toda la altura de la pantalla */
+            background-color: #ff5ca1;
         }
-
         .chat-box {
             flex: 1;
+            overflow-y: auto; /* Permite el scroll en el chat */
+            padding: 20px;
+            background-color: #f0f0f0;
             background-image: url('fondo.jpg');
             background-size: cover;
-            background-repeat: no-repeat;
             background-position: center;
-            overflow-y: auto;
-            padding: 20px;
         }
-
         .input-container {
             display: flex;
             align-items: center;
             padding: 10px;
             background-color: #ff5ca1;
-            border-top: 1px solid #ff5ca1;
+            position: relative;
         }
-
-        textarea#user-input {
+        #user-input {
             flex: 1;
-            font-size: 16px;
             padding: 10px;
             border: none;
+            border-radius: 5px;
+            font-size: 16px;
             outline: none;
             resize: none;
-            border-radius: 5px;
-            background-color: #ffffff;
-            color: #333;
+            box-sizing: border-box;
         }
-
         button {
-            border: none;
-            background-color: #ff5ca1;
-            color: #FFF;
+            margin-left: 10px;
             padding: 10px 20px;
-            cursor: pointer;
-            margin-left: 5px;
+            border: none;
+            background-color: #ff0080;
+            color: white;
+            font-weight: bold;
             border-radius: 5px;
+            cursor: pointer;
         }
-
         button:hover {
-            background-color: #ff73b5;
+            background-color: #e60073;
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
+        <!-- Contenedor de mensajes -->
         <div class="chat-box" id="chat-box"></div>
+        
+        <!-- Área de entrada de mensajes -->
         <div class="input-container" id="input-container">
             <textarea id="user-input" rows="1" placeholder="Escribe un mensaje..."></textarea>
             <button onclick="sendMessage()">Enviar</button>
@@ -88,40 +74,41 @@
     </div>
 
     <script>
-        // Ajustar la altura para dispositivos móviles
-        function setVh() {
-            document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+        // Ajustar el contenedor al detectar el teclado virtual
+        function adjustForKeyboard() {
+            const inputContainer = document.getElementById('input-container');
+            const chatBox = document.getElementById('chat-box');
+
+            // Evento al enfocar el textarea
+            document.getElementById('user-input').addEventListener('focus', () => {
+                setTimeout(() => {
+                    inputContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }, 300); // Espera a que el teclado se muestre
+            });
+
+            // Ajusta altura del contenedor principal
+            window.addEventListener('resize', () => {
+                const windowHeight = window.innerHeight;
+                const containerHeight = document.body.clientHeight;
+                if (windowHeight !== containerHeight) {
+                    document.body.style.height = `${windowHeight}px`;
+                }
+            });
         }
 
-        // Ejecutar al cargar y al cambiar tamaño
-        window.addEventListener('resize', setVh);
-        window.addEventListener('load', setVh);
+        // Llamar a la función al cargar
+        window.onload = adjustForKeyboard;
 
-        // Prevención de acciones no deseadas
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) e.preventDefault();
-            if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I')) e.preventDefault();
-            if (e.key === 'F12') e.preventDefault();
-        });
-
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
+        // Función para enviar mensaje
         function sendMessage() {
-            const chatBox = document.getElementById('chat-box');
             const userInput = document.getElementById('user-input');
-            if (userInput.value.trim() !== '') {
+            const chatBox = document.getElementById('chat-box');
+            if (userInput.value.trim() !== "") {
                 const message = document.createElement('div');
+                message.classList.add('message', 'user');
                 message.textContent = userInput.value;
-                message.style.padding = '10px';
-                message.style.marginBottom = '5px';
-                message.style.backgroundColor = '#ff73b5';
-                message.style.borderRadius = '5px';
-                message.style.color = '#fff';
-                message.style.textAlign = 'right';
                 chatBox.appendChild(message);
-                userInput.value = '';
+                userInput.value = "";
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
         }
