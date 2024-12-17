@@ -14,11 +14,11 @@
             font-family: Arial, sans-serif;
             background-image: url('babalu.jpg');
             color: #FFFFFF;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
         .chat-container {
             width: 400px;
@@ -31,38 +31,15 @@
             flex-direction: column;
         }
         .chat-box {
-            background-image: url('fondo.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center center;
-            height: 100vh;
-            margin: 0;
             flex: 1;
             overflow-y: auto;
             padding: 20px;
             border-bottom: 1px solid #ff5ca1;
             display: flex;
             flex-direction: column;
-        }
-        .message {
-            display: block;
-            margin-bottom: 15px;
-            color: #FFFFFF;
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 80%;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-            text-align: left;
-        }
-        .message.user.text {
-            background-color: #ff5ca1;
-            align-self: flex-end;
-        }
-        .message.bot.text {
-            background-color: #ff5ca1;
-            color: #ffffff;
-            align-self: flex-start;
+            background-image: url('fondo.jpg');
+            background-size: cover;
+            background-position: center;
         }
         .input-container {
             display: flex;
@@ -71,19 +48,23 @@
             align-items: center;
             padding: 0;
         }
-        .icon-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 10px;
-            background-color: #ff5ca1;
-            cursor: pointer;
-            color: white;
-            height: 100%;
+        .input-container textarea {
+            flex: 1;
+            resize: none;
+            padding: 10px;
+            font-size: 20px;
             box-sizing: border-box;
         }
-        textarea#user-input {
-            font-size: 20px;
+        .input-container button {
+            border: none;
+            background-color: #ff5ca1;
+            color: #FFFFFF;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 10px 20px;
+        }
+        .input-container button:hover {
+            background-color: #ff5ca1;
         }
     </style>
 </head>
@@ -91,36 +72,19 @@
   <div class="chat-container">
       <div class="chat-box" id="chat-box"></div>
       <div class="input-container" id="input-container">
-          <div class="icon-container" id="record-voice">🎙️</div>
-          <div class="icon-container" onclick="document.getElementById('media-input').click();">📷</div>
-          <input type="file" id="media-input" accept="image/*,video/*" onchange="sendMedia()">
           <textarea id="user-input" rows="1" placeholder="Escribe un mensaje..."></textarea>
           <button onclick="sendMessage()">Enviar</button>
       </div>
   </div>
+  
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
   <script>
-      document.addEventListener('keydown', function(e) {
-          if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
-              e.preventDefault();
-          }
-          if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I')) {
-              e.preventDefault();
-          }
-          if (e.key === 'F12') {
-              e.preventDefault();
-          }
-      });
-  </script>
-  <script>
-      document.addEventListener('contextmenu', function(e) {
-          e.preventDefault();
-      });
-  </script>
-  <script>
-      // Desplazar automáticamente a la parte inferior al cargar la página
+      // Función para asegurar que el input-container siempre esté visible
       document.addEventListener("DOMContentLoaded", function() {
-          const chatBox = document.getElementById("chat-box");
-          chatBox.scrollTop = chatBox.scrollHeight;
+          const inputContainer = document.getElementById('input-container');
+          inputContainer.scrollIntoView({ behavior: "smooth", block: "end" });
       });
   </script>
 </body>
