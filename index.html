@@ -2,138 +2,144 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <title>🔥Chat P0RN0 En Vivo🔥</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
-    <meta property="og:description" content="¡Disfruta al máximo, haz amistades increíbles y vive experiencias únicas!">
+    <meta property="og:description" content="¡Disfruta al máximo, haz amistades increíbles y vive experiencias únicas. ¡No te pierdas esta oportunidad!">
     <meta property="og:image" content="ban.jpg">
     <link href="icon.png" rel="icon" type="image/x-icon"/>
-    <title>🔥Chat P0RN0 En Vivo🔥</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css">
 
     <style>
-        /* Resetear estilos básicos */
+        /* Reset general */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Estilo general del cuerpo */
-        body {
+        html, body {
+            height: 100%; /* Garantiza que el body ocupe toda la altura de la pantalla */
+            overflow: hidden; /* Evita el scroll en el body */
             font-family: Arial, sans-serif;
             background-image: url('babalu.jpg');
-            background-size: cover;
             color: #FFFFFF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden; /* Evita cualquier desbordamiento */
         }
 
-        /* Contenedor principal del chat */
+        /* Contenedor principal */
         .chat-container {
-            width: 400px;
-            max-width: 100%;
-            background-color: #ff5ca1;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
+            background-color: #ff5ca1;
             overflow: hidden;
         }
 
         /* Caja de mensajes */
         .chat-box {
-            background-image: url('fondo.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center center;
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
+            background-image: url('fondo.jpg');
+            background-size: cover;
+            background-position: center center;
+            padding: 10px;
         }
 
-        /* Contenedor del input */
+        /* Mensajes */
+        .message {
+            margin-bottom: 10px;
+            color: #FFFFFF;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .message.user.text {
+            background-color: #ff5ca1;
+            align-self: flex-end;
+        }
+
+        .message.bot.text {
+            background-color: #ff5ca1;
+            align-self: flex-start;
+        }
+
+        /* Input y botones */
         .input-container {
             display: flex;
-            border-top: 1px solid #ff5ca1;
             background-color: #ff5ca1;
-            align-items: center;
+            padding: 5px;
         }
 
-        /* Ajustes del input de texto */
-        textarea#user-input {
+        .input-container textarea {
             flex: 1;
             border: none;
-            resize: none;
-            outline: none;
-            font-size: 18px;
             padding: 10px;
-            color: black;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: none;
+            overflow: hidden;
         }
 
-        /* Botón de envío */
-        button {
+        .input-container button {
+            margin-left: 10px;
             background-color: #ff5ca1;
-            color: #FFF;
+            color: #FFFFFF;
             border: none;
-            padding: 10px 20px;
+            padding: 10px;
             cursor: pointer;
-            font-weight: 700;
+            font-weight: bold;
+            border-radius: 5px;
         }
 
-        button:hover {
-            background-color: #ff3975;
-        }
-
-        /* Iconos dentro del input */
-        .icon-container {
-            padding: 0 10px;
-            cursor: pointer;
-            color: white;
-            display: flex;
-            align-items: center;
-        }
-
-        /* Media query para pantallas pequeñas */
-        @media screen and (max-width: 768px) {
-            body {
-                height: auto;
-            }
-
-            .chat-container {
-                height: auto;
-            }
+        .input-container button:hover {
+            background-color: #e14b8a;
         }
     </style>
 </head>
 
 <body>
-    <div class="chat-container" id="chat-container">
+    <div class="chat-container">
+        <!-- Caja de mensajes -->
         <div class="chat-box" id="chat-box"></div>
-        <div class="input-container">
-            <div class="icon-container" id="record-voice">🎙️</div>
-            <div class="icon-container" onclick="document.getElementById('media-input').click();">📷</div>
-            <input type="file" id="media-input" accept="image/*,video/*" onchange="sendMedia()" style="display:none;">
+        <!-- Input de mensajes -->
+        <div class="input-container" id="input-container">
             <textarea id="user-input" rows="1" placeholder="Escribe un mensaje..."></textarea>
             <button onclick="sendMessage()">Enviar</button>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
-        // Función para ajustar la altura automáticamente
         function ajustarAltura() {
+            // Calcular altura del viewport
             const alturaViewport = window.innerHeight + "px";
-            const chatContainer = document.getElementById("chat-container");
+
+            // Asignar la altura calculada a los elementos
+            const chatContainer = document.querySelector(".chat-container");
             chatContainer.style.height = alturaViewport;
         }
 
-        // Ajustar altura en DOM y en cambio de tamaño
+        // Llamar a la función en eventos críticos
         document.addEventListener("DOMContentLoaded", ajustarAltura);
         window.addEventListener("resize", ajustarAltura);
+
+        // Ejemplo básico de envío de mensajes
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+
+            if (userInput.value.trim() !== "") {
+                const message = document.createElement('div');
+                message.classList.add('message', 'user', 'text');
+                message.textContent = userInput.value;
+                chatBox.appendChild(message);
+
+                userInput.value = "";
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
-
 </body>
 </html>
