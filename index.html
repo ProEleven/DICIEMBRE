@@ -3,91 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>🔥Chat P0RN0 En Vivo🔥</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
-    <meta data-hid="og:description" property="og:description" content="¡Disfruta al máximo, haz amistades increíbles y vive experiencias únicas. ¡No te pierdas esta oportunidad!">
     <meta property="og:image" content="ban.jpg">
     <link href='icon.png' rel='icon' type='image/x-icon'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css">
     <style>
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             background-image: url('babalu.jpg');
-            color: #FFFFFF;
-            margin: 0;
-            height: 100vh;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100%;
+            height: 100%;
             overflow: hidden;
         }
 
         .chat-container {
-            width: 400px;
-            max-width: 100%;
-            height: 100%;
-            background-color: #ff5ca1;
+            width: 100%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
+            background-color: #ff5ca1;
+            height: 100%;
+            max-height: 100dvh; /* Usa la altura segura */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
 
         .chat-box {
             background-image: url('fondo.jpg');
             background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center center;
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
         .input-container {
             display: flex;
-            border-top: 1px solid #ff5ca1;
             background-color: #ff5ca1;
             align-items: center;
             padding: 5px;
-            position: sticky;
-            bottom: 0;
-            z-index: 10;
+            box-sizing: border-box;
         }
 
-        textarea#user-input {
+        .input-container textarea {
             flex: 1;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
             font-size: 16px;
-            resize: none;
-            overflow: hidden;
-        }
-
-        textarea#user-input:focus {
+            border: none;
             outline: none;
+            resize: none;
+            border-radius: 5px;
+            padding: 5px;
         }
 
         .icon-container, button {
-            background-color: #ff5ca1;
+            background-color: transparent;
             border: none;
-            color: #FFFFFF;
+            color: white;
             cursor: pointer;
-            padding: 10px;
-            margin: 0 5px;
-            border-radius: 5px;
+            padding: 5px;
+            font-size: 24px;
         }
 
-        .icon-container:hover, button:hover {
-            background-color: #e94e8a;
+        .input-container button {
+            background-color: #ff458f;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
         }
+
+        .message {
+            color: white;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 80%;
+        }
+
+        .message.user.text {
+            background-color: #ff458f;
+            align-self: flex-end;
+        }
+
+        .message.bot.text {
+            background-color: #ff85b6;
+            align-self: flex-start;
+        }
+
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-box" id="chat-box"></div>
-        <div class="input-container" id="input-container">
+        <div class="input-container">
             <div class="icon-container" id="record-voice">🎙️</div>
             <div class="icon-container" onclick="document.getElementById('media-input').click();">📷</div>
             <input type="file" id="media-input" accept="image/*,video/*" onchange="sendMedia()" style="display: none;">
@@ -95,40 +107,54 @@
             <button onclick="sendMessage()">Enviar</button>
         </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
     <script>
-        const userInput = document.getElementById('user-input');
-        const inputContainer = document.getElementById('input-container');
+        $(document).ready(function() {
+            $("#user-input").emojioneArea({
+                pickerPosition: "top",
+                filtersPosition: "bottom",
+                tonesStyle: "bullet"
+            });
+        });
 
-        // Evitar que la parte inferior quede oculta al mostrar el teclado
-        function adjustInputContainer() {
-            if (window.innerHeight !== document.documentElement.clientHeight) {
-                inputContainer.style.position = 'absolute';
-                inputContainer.style.bottom = '0';
-            } else {
-                inputContainer.style.position = 'sticky';
-            }
-        }
-
-        window.addEventListener('resize', adjustInputContainer);
-        adjustInputContainer();
-
-        // Ejemplo de funciones (ajustar según funcionalidad)
         function sendMessage() {
-            const chatBox = document.getElementById('chat-box');
-            const message = userInput.value.trim();
-            if (message) {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message', 'user', 'text');
-                messageElement.textContent = message;
-                chatBox.appendChild(messageElement);
-                userInput.value = '';
+            const userInput = document.querySelector('#user-input').value;
+            if (userInput.trim()) {
+                const chatBox = document.querySelector('#chat-box');
+                const message = document.createElement('div');
+                message.className = 'message user text';
+                message.textContent = userInput;
+                chatBox.appendChild(message);
+                document.querySelector('#user-input').value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
             }
         }
 
         function sendMedia() {
-            alert('Media enviada.');
+            const input = document.querySelector('#media-input');
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                const chatBox = document.querySelector('#chat-box');
+                const message = document.createElement('div');
+                message.className = 'message user media';
+
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    img.style.maxWidth = '100%';
+                    message.appendChild(img);
+                } else if (file.type.startsWith('video/')) {
+                    const video = document.createElement('video');
+                    video.src = URL.createObjectURL(file);
+                    video.controls = true;
+                    video.style.maxWidth = '100%';
+                    message.appendChild(video);
+                }
+                chatBox.appendChild(message);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
         }
     </script>
 </body>
