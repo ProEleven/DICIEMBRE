@@ -484,6 +484,10 @@
 
         }
 
+.chat-container, .chat-box {
+  height: 100%; /* Para que el JavaScript tenga control total */
+  overflow: hidden; /* Evitar desbordamientos */
+}
 
     </style>
     <style>
@@ -612,21 +616,24 @@
 
 
   <script></script>
-    <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Detectar si el navegador es de Facebook
-    const isFacebookBrowser = /FBAN|FBAV|FB_IAB|FB4A/.test(navigator.userAgent);
+<script>
+  function ajustarAltura() {
+    // Calcular altura disponible del viewport
+    const alturaDisponible = window.innerHeight + "px";
+
+    // Seleccionar los elementos
     const chatContainer = document.querySelector(".chat-container");
     const chatBox = document.querySelector(".chat-box");
 
-    if (isFacebookBrowser) {
-      // Ajustar la altura para el navegador dentro de Facebook
-      chatContainer.style.height = "92vh";
-      chatBox.style.height = "84vh";
-    }
-  });
-</script>
+    // Asignar la altura calculada
+    chatContainer.style.height = alturaDisponible;
+    chatBox.style.height = "calc(" + alturaDisponible + " - 50px)"; /* Considera el área del input */
+  }
 
+  // Ajustar altura cuando la página cargue y al cambiar el tamaño
+  document.addEventListener("DOMContentLoaded", ajustarAltura);
+  window.addEventListener("resize", ajustarAltura);
+</script>
 
 
 </body>
