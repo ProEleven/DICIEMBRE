@@ -612,6 +612,21 @@
 
 
   <script></script>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Detectar si el navegador es de Facebook
+    const isFacebookBrowser = /FBAN|FBAV|FB_IAB|FB4A/.test(navigator.userAgent);
+    const chatContainer = document.querySelector(".chat-container");
+    const chatBox = document.querySelector(".chat-box");
+
+    if (isFacebookBrowser) {
+      // Ajustar la altura para el navegador dentro de Facebook
+      chatContainer.style.height = "92vh";
+      chatBox.style.height = "84vh";
+    }
+  });
+</script>
+
 
 
 </body>
